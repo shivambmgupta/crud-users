@@ -7,50 +7,6 @@ import ProfileMenu from '../../components/ProfileMenu';
 import Avatar from 'antd/lib/avatar/avatar';
 import { connect } from 'react-redux';
 
-const columns = [
-    {
-        title: 'ID',
-        dataIndex: 'id',
-        key: 'id',
-        render: text => <a>{text}</a>,
-    },
-    {
-        title: 'Fist Name',
-        dataIndex: 'first_name',
-        key: 'first_name',
-    },
-    {
-        title: 'Last Name',
-        dataIndex: 'last_name',
-        key: 'last_name',
-    },
-    {
-        title: 'Email',
-        dataIndex: 'email',
-        key: 'email',
-    },
-    {
-        title: 'Profile Image',
-        key: 'avatar',
-        dataIndex: 'avatar',
-        render: avatar => (
-            <Space style={{ display: 'flex', justifyContent: 'center', alignItems: 'center' }}>
-                <Avatar size="large" src={avatar ? avatar : ''} />
-            </Space>
-        ),
-    },
-    {
-        title: 'Action',
-        key: 'action',
-        render: (record) => {
-            return (
-                <Space size="middle" style={{ display: 'flex', justifyContent: 'center', alignItems: 'center' }}>
-                    <Button type="primary" onClick={() => this.updateEditModalVisibility(record)} shape="round" icon={<EditFilled />} size={16} />
-                    <Button type="primary" onClick={() => this.updateDeleteModalVisibility(record)} shape="round" icon={<DeleteFilled />} size={16} />
-                </Space>);
-        },
-    },
-];
 
 class Home extends Component {
     constructor(props) {
@@ -63,6 +19,51 @@ class Home extends Component {
             addModalVisible: false
         };
     }
+
+    columns = [
+        {
+            title: 'ID',
+            dataIndex: 'id',
+            key: 'id',
+            render: text => <a>{text}</a>,
+        },
+        {
+            title: 'Fist Name',
+            dataIndex: 'first_name',
+            key: 'first_name',
+        },
+        {
+            title: 'Last Name',
+            dataIndex: 'last_name',
+            key: 'last_name',
+        },
+        {
+            title: 'Email',
+            dataIndex: 'email',
+            key: 'email',
+        },
+        {
+            title: 'Profile Image',
+            key: 'avatar',
+            dataIndex: 'avatar',
+            render: avatar => (
+                <Space style={{ display: 'flex', justifyContent: 'center', alignItems: 'center' }}>
+                    <Avatar size="large" src={avatar ? avatar : ''} />
+                </Space>
+            ),
+        },
+        {
+            title: 'Action',
+            key: 'action',
+            render: (record) => {
+                return (
+                    <Space size="middle" style={{ display: 'flex', justifyContent: 'center', alignItems: 'center' }}>
+                        <Button type="primary" onClick={() => this.updateEditModalVisibility(record)} shape="round" icon={<EditFilled />} size={16} />
+                        <Button type="primary" onClick={() => this.updateDeleteModalVisibility(record)} shape="round" icon={<DeleteFilled />} size={16} />
+                    </Space>);
+            },
+        },
+    ];
 
     updateDeleteModalVisibility = (user) => {
         user ?
@@ -125,7 +126,7 @@ class Home extends Component {
                     {this.state.deleteModalVisible && <DeleteModal isVisible={true} setIsModalVisible={this.updateDeleteModalVisibility} user={this.state.selectedUser} />}
                     {this.state.editModalVisible && <UserModal isVisible={true} setIsModalVisible={this.updateEditModalVisibility} user={this.state.selectedUser} />}
                     {this.state.addModalVisible && <UserModal isVisible={true} setIsModalVisible={this.updateAddModalVisibility} newUser={true} />}
-                    <Table columns={columns} dataSource={this.state.users} bordered />
+                    <Table columns={this.columns} dataSource={this.state.users} bordered />
                     <Row style={{ fontSize: '16px', margin: '20px' }}>
                         <Col span={12}>
                             <div> <footer>&copy; {`Copyright Shivam`}</footer> </div>
